@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AmpliPets — Premium Pet Food & Supplies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #00875a;
+      --primary-dark: #006644;
+      --primary-light: #e3fcef;
+      --accent: #ff6b35;
+      --accent-dark: #e55a2b;
+      --bg: #f8f9fa;
+      --white: #ffffff;
+      --gray-50: #f8f9fa;
+      --gray-100: #f1f3f5;
+      --gray-200: #e9ecef;
+      --gray-300: #dee2e6;
+      --gray-400: #ced4da;
+      --gray-500: #adb5bd;
+      --gray-600: #868e96;
+      --gray-700: #495057;
+      --gray-800: #343a40;
+      --gray-900: #212529;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--gray-800);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      background: var(--primary);
+      color: white;
+      font-size: 13px;
+      font-weight: 500;
+      overflow: hidden;
+    }
+    .top-bar-inner {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 8px 20px;
+      white-space: nowrap;
+      animation: marquee 20s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .top-bar span::before { content: '✓ '; }
+
+    /* HEADER */
+    .header {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      height: 70px;
+      gap: 32px;
+    }
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+      flex-shrink: 0;
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--accent); }
+    .search-bar {
+      flex: 1;
+      max-width: 500px;
+      position: relative;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 10px 44px 10px 16px;
+      border: 2px solid var(--gray-200);
+      border-radius: 50px;
+      font-size: 14px;
+      font-family: inherit;
+      background: var(--gray-50);
+      transition: all 0.2s;
+    }
+    .search-bar input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(0,135,90,0.1);
+    }
+    .search-bar button {
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--primary);
+      color: white;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+    .search-bar button:hover { background: var(--primary-dark); }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+    .header-actions a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--gray-700);
+      font-size: 11px;
+      font-weight: 500;
+      gap: 2px;
+      transition: color 0.2s;
+    }
+    .header-actions a:hover { color: var(--primary); }
+    .header-actions a .icon { font-size: 22px; }
+    .cart-badge {
+      position: relative;
+    }
+    .cart-badge .count {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background: var(--accent);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* NAV */
+    .nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+    }
+    .nav a {
+      padding: 14px 18px;
+      text-decoration: none;
+      color: var(--gray-700);
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: all 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+    .nav a:hover { color: var(--primary); border-bottom-color: var(--primary); }
+    .nav a.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .nav a.sale { color: var(--accent); }
+    .nav a.sale:hover { border-bottom-color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #00a86b 100%);
+      color: white;
+      padding: 48px 24px;
+    }
+    .hero-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+    .hero-text { flex: 1; }
+    .hero-text .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      backdrop-filter: blur(4px);
+    }
+    .hero-text h1 {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+    .hero-text p {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 28px;
+      max-width: 480px;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      color: var(--primary);
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+    .hero-visual {
+      flex-shrink: 0;
+      display: flex;
+      gap: 16px;
+    }
+    .hero-card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      min-width: 140px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .hero-card .emoji { font-size: 40px; margin-bottom: 8px; }
+    .hero-card .label { font-size: 13px; font-weight: 600; opacity: 0.9; }
+
+    /* BREADCRUMB */
+    .breadcrumb {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+    .breadcrumb a { color: var(--gray-500); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--primary); }
+    .breadcrumb .sep { font-size: 10px; }
+
+    /* PAGE TITLE */
+    .page-title {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px 24px;
+    }
+    .page-title h2 {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--gray-900);
+      letter-spacing: -0.5px;
+    }
+    .page-title p { color: var(--gray-600); margin-top: 4px; }
+
+    /* TAB BAR */
+    .tab-bar {
+      max-width: 1280px;
+      margin: 0 auto 24px;
+      padding: 0 24px;
+      display: flex;
+      gap: 8px;
+    }
+    .tab-bar button {
+      padding: 10px 24px;
+      border: 2px solid var(--gray-200);
+      background: white;
+      border-radius: 50px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-bar button:hover { border-color: var(--primary); color: var(--primary); }
+    .tab-bar button.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    /* FILTERS */
+    .filters-bar {
+      max-width: 1280px;
+      margin: 0 auto 24px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border: 1px solid var(--gray-300);
+      border-radius: 50px;
+      background: white;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-700);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-chip:hover { border-color: var(--primary); color: var(--primary); }
+    .filter-chip .arrow { font-size: 10px; opacity: 0.6; }
+    .sort-select {
+      margin-left: auto;
+      padding: 8px 16px;
+      border: 1px solid var(--gray-300);
+      border-radius: 50px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-700);
+      background: white;
+      cursor: pointer;
+    }
+    .product-count {
+      font-size: 14px;
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+
+    /* PRODUCTS GRID */
+    .products-section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .product-card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.3s;
+      border: 1px solid var(--gray-200);
+      position: relative;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+      border-color: transparent;
+    }
+    .product-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .product-badge span {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-sale { background: var(--accent); color: white; }
+    .badge-new { background: var(--primary); color: white; }
+    .badge-top { background: #ffd43b; color: var(--gray-900); }
+    .product-img {
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--gray-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-img .wishlist {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      background: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s;
+      z-index: 2;
+    }
+    .product-img .wishlist:hover { background: #ffe3e3; transform: scale(1.1); }
+    .product-img .wishlist.active { background: #ffe3e3; }
+    .product-info {
+      padding: 16px;
+    }
+    .product-brand {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .product-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 8px;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .stars { color: #fcc419; font-size: 13px; letter-spacing: 1px; }
+    .rating-text { font-size: 12px; color: var(--gray-500); }
+    .product-variants {
+      font-size: 12px;
+      color: var(--gray-500);
+      margin-bottom: 8px;
+    }
+    .product-price {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .price-current {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--gray-900);
+    }
+    .price-original {
+      font-size: 14px;
+      color: var(--gray-400);
+      text-decoration: line-through;
+    }
+    .price-unit {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+    .product-add {
+      width: 100%;
+      margin-top: 12px;
+      padding: 10px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .product-add:hover { background: var(--primary-dark); }
+
+    /* FEATURES BAR */
+    .features {
+      background: white;
+      border-top: 1px solid var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 32px 24px;
+    }
+    .features-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .feature .icon {
+      width: 48px;
+      height: 48px;
+      background: var(--primary-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .feature .text { font-size: 13px; }
+    .feature .text strong { display: block; font-weight: 700; color: var(--gray-800); }
+    .feature .text span { color: var(--gray-500); }
+
+    /* NEWSLETTER */
+    .newsletter {
+      background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-800) 100%);
+      color: white;
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .newsletter h3 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .newsletter p {
+      color: var(--gray-400);
+      margin-bottom: 24px;
+      font-size: 16px;
+    }
+    .newsletter-form {
+      display: flex;
+      max-width: 480px;
+      margin: 0 auto;
+      gap: 8px;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 14px 20px;
+      border: 2px solid var(--gray-700);
+      border-radius: 50px;
+      background: transparent;
+      color: white;
+      font-family: inherit;
+      font-size: 14px;
+    }
+    .newsletter-form input::placeholder { color: var(--gray-500); }
+    .newsletter-form input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .newsletter-form button {
+      padding: 14px 32px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .newsletter-form button:hover { background: var(--accent-dark); }
+
+    /* FOOTER */
+    .footer {
+      background: var(--gray-900);
+      color: var(--gray-400);
+      padding: 48px 24px 24px;
+    }
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-col h4 {
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .footer-col a {
+      display: block;
+      color: var(--gray-400);
+      text-decoration: none;
+      font-size: 14px;
+      padding: 4px 0;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: white; }
+    .footer-bottom {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid var(--gray-800);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+    .footer-bottom .links { display: flex; gap: 20px; }
+    .footer-bottom a { color: var(--gray-500); text-decoration: none; }
+    .footer-bottom a:hover { color: white; }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: white;
+      border-radius: 16px;
+      max-width: 520px;
+      width: 90%;
+      padding: 40px;
+      position: relative;
+      box-shadow: var(--shadow-lg);
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--gray-400);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .modal-close:hover { background: var(--gray-100); color: var(--gray-700); }
+    .modal h3 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--gray-900);
+    }
+    .modal p { color: var(--gray-600); margin-bottom: 20px; font-size: 14px; }
+    .modal-form label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-700);
+      margin-bottom: 6px;
+    }
+    .modal-form input, .modal-form select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 14px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    .modal-form input:focus, .modal-form select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .modal-form .btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .modal-form .btn:hover { background: var(--primary-dark); }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--gray-900);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      z-index: 2000;
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* FEEDBACK SIDEBAR */
+    .feedback-trigger {
+      position: fixed;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 8px;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 8px 0 0 8px;
+      z-index: 99;
+      letter-spacing: 1px;
+      transition: background 0.2s;
+    }
+    .feedback-trigger:hover { background: var(--primary-dark); }
+
+    .feedback-panel {
+      position: fixed;
+      right: -380px;
+      top: 0;
+      bottom: 0;
+      width: 380px;
+      background: white;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+      z-index: 200;
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .feedback-panel.open { right: 0; }
+    .feedback-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .feedback-header h3 { font-size: 18px; font-weight: 700; }
+    .feedback-header button {
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--gray-400);
+    }
+    .feedback-body {
+      padding: 24px;
+      flex: 1;
+      overflow-y: auto;
+    }
+    .feedback-body label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-700);
+      margin-bottom: 8px;
+    }
+    .feedback-emoji-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .feedback-emoji-row button {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--gray-200);
+      border-radius: 12px;
+      background: white;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .feedback-emoji-row button:hover { border-color: var(--primary); transform: scale(1.1); }
+    .feedback-emoji-row button.selected { border-color: var(--primary); background: var(--primary-light); }
+    .feedback-body textarea {
+      width: 100%;
+      height: 120px;
+      padding: 12px;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 14px;
+      resize: vertical;
+      margin-bottom: 16px;
+    }
+    .feedback-body textarea:focus { outline: none; border-color: var(--primary); }
+    .feedback-submit {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .feedback-submit:hover { background: var(--primary-dark); }
+    .feedback-user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: var(--primary-light);
+      border-radius: var(--radius-sm);
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: var(--gray-700);
+    }
+    .feedback-user-info .avatar {
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .feedback-user-info .email { font-weight: 600; }
+
+    /* USER BAR (logged-in state in header) */
+    .user-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      position: relative;
+    }
+    .user-bar .avatar-sm {
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .user-bar .user-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-700);
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .user-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 8px;
+      background: white;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--gray-200);
+      min-width: 200px;
+      z-index: 150;
+      overflow: hidden;
+    }
+    .user-menu.open { display: block; }
+    .user-menu-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .user-menu-header .name { font-size: 14px; font-weight: 700; color: var(--gray-800); }
+    .user-menu-header .email { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+    .user-menu a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-700);
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .user-menu a:hover { background: var(--gray-50); }
+    .user-menu a.logout { color: #e03131; border-top: 1px solid var(--gray-100); }
+    .user-menu a.logout:hover { background: #fff5f5; }
+
+    /* AUTH MODAL TABS */
+    .auth-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--gray-200);
+    }
+    .auth-tabs button {
+      flex: 1;
+      padding: 12px;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-400);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+    }
+    .auth-tabs button:hover { color: var(--gray-600); }
+    .auth-tabs button.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .auth-form-section { display: none; }
+    .auth-form-section.active { display: block; }
+    .modal-form .input-row {
+      display: flex;
+      gap: 12px;
+    }
+    .modal-form .input-row > div { flex: 1; }
+
+    /* EXPERIMENT BANNER (A/B test demo) */
+    .experiment-banner {
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 14px 24px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.3s;
+      position: relative;
+    }
+    .experiment-banner:hover { opacity: 0.95; }
+    .experiment-banner .close-btn {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+    .experiment-banner .close-btn:hover { opacity: 1; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .products-grid { grid-template-columns: repeat(3, 1fr); }
+      .hero-visual { display: none; }
+      .features-inner { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .header-inner { gap: 16px; }
+      .hero-text h1 { font-size: 28px; }
+      .newsletter-form { flex-direction: column; }
+    }
+    @media (max-width: 480px) {
+      .products-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Experiment Banner -->
+  <div class="experiment-banner" id="experimentBanner" data-amp-experiment="promo-banner-test">
+    Get 15% off your first order — Use code <strong>NEWPET15</strong> at checkout
+    <button class="close-btn" onclick="closeExperiment()">&times;</button>
+  </div>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <span>Free shipping on orders over $49</span>
+      <span>Click &amp; Collect available</span>
+      <span>12% off your first order</span>
+      <span>Delivery in 1–3 business days</span>
+      <span>Free shipping on orders over $49</span>
+      <span>Click &amp; Collect available</span>
+      <span>12% off your first order</span>
+      <span>Delivery in 1–3 business days</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="#" class="logo">Ampli<span>Pets</span></a>
+      <div class="search-bar">
+        <input type="text" placeholder="Search for products, brands, or categories..." id="searchInput">
+        <button onclick="handleSearch()">&#128269;</button>
+      </div>
+      <div class="header-actions">
+        <a href="#" id="accountLink" onclick="openModal('auth')"><span class="icon">&#128100;</span>Account</a>
+        <div class="user-bar" id="userBar" style="display:none" onclick="toggleUserMenu()">
+          <div class="avatar-sm" id="userAvatar"></div>
+          <span class="user-name" id="userName"></span>
+          <div class="user-menu" id="userMenu">
+            <div class="user-menu-header">
+              <div class="name" id="menuName"></div>
+              <div class="email" id="menuEmail"></div>
+            </div>
+            <a href="#" onclick="event.stopPropagation(); showToast('My Orders — coming soon')">&#128230; My Orders</a>
+            <a href="#" onclick="event.stopPropagation(); showToast('My Pets — coming soon')">&#128062; My Pets</a>
+            <a href="#" onclick="event.stopPropagation(); showToast('Settings — coming soon')">&#9881;&#65039; Settings</a>
+            <a href="#" class="logout" onclick="event.stopPropagation(); handleLogout()">&#9109; Sign Out</a>
+          </div>
+        </div>
+        <a href="#"><span class="icon">&#9825;</span>Wishlist</a>
+        <a href="#" onclick="showToast('Your cart is empty')">
+          <span class="icon cart-badge">&#128722;<span class="count">0</span></span>
+          Cart
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="active">Cat</a>
+      <a href="#">Dog</a>
+      <a href="#">Small Pets</a>
+      <a href="#">Birds</a>
+      <a href="#">Fish &amp; Aquaria</a>
+      <a href="#">Reptiles</a>
+      <a href="#">Horse</a>
+      <a href="#">Health</a>
+      <a href="#" class="sale">Deals</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <span class="badge">Cat Nutrition</span>
+        <h1>Premium Cat Food<br>at the Best Prices</h1>
+        <p>Scientifically formulated recipes tailored to your cat's unique needs — indoor, senior, sensitive, or active.</p>
+        <a href="#products" class="hero-cta">Shop Now &#8594;</a>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card"><div class="emoji">&#128049;</div><div class="label">Indoor</div></div>
+        <div class="hero-card"><div class="emoji">&#128008;</div><div class="label">Senior</div></div>
+        <div class="hero-card"><div class="emoji">&#128568;</div><div class="label">Sensitive</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="#">Home</a>
+    <span class="sep">&#9656;</span>
+    <a href="#">Deals &amp; Offers</a>
+    <span class="sep">&#9656;</span>
+    <span>Premium Cat Food</span>
+  </div>
+
+  <!-- Page Title -->
+  <div class="page-title" id="products">
+    <h2>Premium Cat Food — Special Offers</h2>
+    <p>Discover our range of scientifically formulated cat food at unbeatable prices</p>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <button class="active" onclick="switchTab(this)">All Products</button>
+    <button onclick="switchTab(this)">Dry Food</button>
+    <button onclick="switchTab(this)">Wet Food</button>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-bar">
+    <div class="filter-chip" onclick="showToast('Filter: Life Stage')">Life Stage <span class="arrow">&#9662;</span></div>
+    <div class="filter-chip" onclick="showToast('Filter: Price Range')">Price <span class="arrow">&#9662;</span></div>
+    <div class="filter-chip" onclick="showToast('Filter: Special Needs')">Special Needs <span class="arrow">&#9662;</span></div>
+    <div class="filter-chip" onclick="showToast('Filter: Protein Source')">Protein <span class="arrow">&#9662;</span></div>
+    <div class="filter-chip" onclick="showToast('Filter: Pack Size')">Pack Size <span class="arrow">&#9662;</span></div>
+    <span class="product-count">14 products</span>
+    <select class="sort-select" onchange="showToast('Sorted by ' + this.value)">
+      <option>Sort: Popularity</option>
+      <option>Price: Low to High</option>
+      <option>Price: High to Low</option>
+      <option>Top Rated</option>
+      <option>Newest</option>
+    </select>
+  </div>
+
+  <!-- Products -->
+  <section class="products-section">
+    <div class="products-grid" id="productsGrid"></div>
+  </section>
+
+  <!-- Features Bar -->
+  <div class="features">
+    <div class="features-inner">
+      <div class="feature">
+        <div class="icon">&#128666;</div>
+        <div class="text"><strong>Free Delivery</strong><span>On orders over $49</span></div>
+      </div>
+      <div class="feature">
+        <div class="icon">&#128259;</div>
+        <div class="text"><strong>30-Day Returns</strong><span>Easy, no-hassle returns</span></div>
+      </div>
+      <div class="feature">
+        <div class="icon">&#128274;</div>
+        <div class="text"><strong>Secure Payment</strong><span>SSL encrypted checkout</span></div>
+      </div>
+      <div class="feature">
+        <div class="icon">&#9742;&#65039;</div>
+        <div class="text"><strong>Expert Support</strong><span>Mon–Fri, 8am–8pm</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Newsletter -->
+  <div class="newsletter">
+    <h3>Join the AmpliPets Family</h3>
+    <p>Sign up for exclusive deals, pet care tips, and a 10% welcome discount.</p>
+    <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+      <input type="email" placeholder="Enter your email address" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>Customer Service</h4>
+        <a href="#">Help &amp; FAQ</a>
+        <a href="#">My Account</a>
+        <a href="#">Order Tracking</a>
+        <a href="#">Shipping Info</a>
+        <a href="#">Returns &amp; Refunds</a>
+        <a href="#">Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="#">Current Deals</a>
+        <a href="#">New Arrivals</a>
+        <a href="#">Best Sellers</a>
+        <a href="#">Brands</a>
+        <a href="#">Gift Cards</a>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <a href="#">Our Story</a>
+        <a href="#">Careers</a>
+        <a href="#">Sustainability</a>
+        <a href="#">Press</a>
+        <a href="#">Blog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+        <a href="#">Twitter</a>
+        <a href="#">YouTube</a>
+        <a href="#">TikTok</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 AmpliPets. All rights reserved.</span>
+      <div class="links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Settings</a>
+        <a href="#">Imprint</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Feedback Side Panel -->
+  <button class="feedback-trigger" onclick="toggleFeedback()">FEEDBACK</button>
+  <div class="feedback-panel" id="feedbackPanel">
+    <div class="feedback-header">
+      <h3>Share Your Feedback</h3>
+      <button onclick="toggleFeedback()">&times;</button>
+    </div>
+    <div class="feedback-body">
+      <div class="feedback-user-info" id="feedbackUserInfo" style="display:none">
+        <div class="avatar" id="feedbackAvatar"></div>
+        <div>Submitting as <span class="email" id="feedbackEmail"></span></div>
+      </div>
+      <label>How's your experience?</label>
+      <div class="feedback-emoji-row">
+        <button onclick="selectEmoji(this, 'terrible')">&#128545;</button>
+        <button onclick="selectEmoji(this, 'bad')">&#128577;</button>
+        <button onclick="selectEmoji(this, 'okay')">&#128528;</button>
+        <button onclick="selectEmoji(this, 'good')">&#128578;</button>
+        <button onclick="selectEmoji(this, 'great')">&#128525;</button>
+      </div>
+      <label>What can we improve?</label>
+      <textarea placeholder="Tell us about your experience..."></textarea>
+      <button class="feedback-submit" onclick="submitFeedback()">Send Feedback</button>
+    </div>
+  </div>
+
+  <!-- Auth Modal (Sign In / Sign Up) -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('auth')">&times;</button>
+      <div class="auth-tabs">
+        <button class="active" onclick="switchAuthTab('login')">Sign In</button>
+        <button onclick="switchAuthTab('signup')">Create Account</button>
+      </div>
+
+      <!-- Sign In Form -->
+      <div class="auth-form-section active" id="loginForm">
+        <div class="modal-form">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@example.com" id="signinEmail">
+          <label>Password</label>
+          <input type="password" placeholder="Enter your password" id="signinPassword">
+          <button class="btn" onclick="handleSignIn()">Sign In</button>
+        </div>
+      </div>
+
+      <!-- Sign Up Form -->
+      <div class="auth-form-section" id="signupForm">
+        <div class="modal-form">
+          <div class="input-row">
+            <div>
+              <label>First Name</label>
+              <input type="text" placeholder="Jane" id="signupFirst">
+            </div>
+            <div>
+              <label>Last Name</label>
+              <input type="text" placeholder="Doe" id="signupLast">
+            </div>
+          </div>
+          <label>Email Address</label>
+          <input type="email" placeholder="you@example.com" id="signupEmail">
+          <label>Password</label>
+          <input type="password" placeholder="Create a password" id="signupPassword">
+          <label>I have a...</label>
+          <select id="signupPetType">
+            <option value="">Select your pet</option>
+            <option value="cat">Cat</option>
+            <option value="dog">Dog</option>
+            <option value="both">Cat & Dog</option>
+            <option value="small_pet">Small Pet</option>
+            <option value="bird">Bird</option>
+            <option value="fish">Fish</option>
+            <option value="other">Other</option>
+          </select>
+          <button class="btn" onclick="handleSignUp()">Create Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Amplitude Browser SDK -->
+  <script src="https://cdn.amplitude.com/script/abbe8a9e9484b1b04089a5268498ca69.js"></script>
+  <script src="https://cdn.amplitude.com/script/abbe8a9e9484b1b04089a5268498ca69.engagement.js"></script>
+  <script>
+    window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
+    window.amplitude.add(window.engagement.plugin());
+    window.amplitude.init('abbe8a9e9484b1b04089a5268498ca69', {
+      fetchRemoteConfig: true,
+      autocapture: {
+        attribution: true,
+        pageViews: true,
+        sessions: false,
+        formInteractions: false,
+        fileDownloads: false,
+        elementInteractions: false,
+        webVitals: true,
+        frustrationInteractions: true
+      }
+    });
+  </script>
+
+  <!-- Freshdesk Chatbot -->
+  <script>
+    function initFreshdesk() {
+      window.fdWidget.init({
+        token: "01KQ9SHDCR29CRHX8RZ0JY2991",
+        host: "https://amplitude-help.freshdesk.com",
+        widgetId: "01KQ9SHG5Z8HNTWWJ1RRBXFXXD"
+      });
+    }
+
+    function initialize(i,t){var e;i.getElementById(t)?initFreshdesk():((e=i.createElement("script")).id=t,e.async=!0,e.src="https://amplitude-help.freshdesk.com/webchat/js/widget.js",e.onload=initFreshdesk,i.head.appendChild(e))}function initiateCall(){initialize(document,"Freshdesk-js-sdk")}window.addEventListener?window.addEventListener("load",initiateCall,!1):window.attachEvent("load",initiateCall,!1);
+  </script>
+
+  <script>
+    const products = [
+      { name: 'Sensitive Chicken Wet Food 12×85g', brand: 'PerfectFit', emoji: '&#128049;', rating: 4.5, reviews: 93, price: '$9.99', unit: '$9.79/kg', badge: null, variants: '2 flavors' },
+      { name: 'Senior 7+ Turkey Wet Food 12×85g', brand: 'PerfectFit', emoji: '&#128008;', rating: 4.7, reviews: 35, price: '$10.29', unit: '$10.09/kg', badge: null, variants: null },
+      { name: 'Indoor 1+ Chicken Wet Food 12×85g', brand: 'PerfectFit', emoji: '&#128568;', rating: 4.6, reviews: 27, price: '$9.99', unit: '$9.79/kg', badge: 'new', variants: null },
+      { name: 'Adult Mix Wet Food 12×85g', brand: 'PerfectFit', emoji: '&#128062;', rating: 4.6, reviews: 88, price: '$7.99', unit: '$7.83/kg', badge: 'sale', oldPrice: '$9.49', variants: null },
+      { name: 'Indoor 1+ Chicken Dry Food 750g', brand: 'PerfectFit', emoji: '&#128049;', rating: 4.8, reviews: 72, price: '$3.99', unit: '$5.32/kg', badge: 'top', variants: '4 sizes' },
+      { name: 'Adult 1+ Salmon Dry Food 750g', brand: 'PerfectFit', emoji: '&#128031;', rating: 4.8, reviews: 209, price: '$3.99', unit: '$5.32/kg', badge: 'top', variants: '6 sizes' },
+      { name: 'Anti-Hairball 1+ Chicken 750g', brand: 'PerfectFit', emoji: '&#128568;', rating: 4.7, reviews: 52, price: '$5.49', unit: '$7.32/kg', badge: null, variants: '2 sizes' },
+      { name: 'Senior 11+ Chicken Dry Food 750g', brand: 'PerfectFit', emoji: '&#128008;', rating: 4.8, reviews: 31, price: '$3.99', unit: '$5.32/kg', badge: null, variants: '4 sizes' },
+      { name: 'Sensitive 1+ Turkey Dry Food 750g', brand: 'PerfectFit', emoji: '&#129411;', rating: 4.8, reviews: 57, price: '$3.99', unit: '$5.32/kg', badge: null, variants: '2 sizes' },
+      { name: 'Active 1+ Beef Dry Food 750g', brand: 'PerfectFit', emoji: '&#128004;', rating: 4.5, reviews: 40, price: '$4.79', unit: '$6.39/kg', badge: null, variants: '2 sizes' },
+      { name: 'Junior Chicken Dry Food 750g', brand: 'PerfectFit', emoji: '&#128049;', rating: 4.6, reviews: 40, price: '$4.99', unit: '$6.65/kg', badge: 'new', variants: '4 sizes' },
+      { name: 'Senior 7+ Chicken Dry Food 750g', brand: 'PerfectFit', emoji: '&#128008;', rating: 4.8, reviews: 56, price: '$4.99', unit: '$6.65/kg', badge: null, variants: '4 sizes' },
+      { name: 'Senior 7+ Turkey & Carrot Multi 12×85g', brand: 'PerfectFit', emoji: '&#129382;', rating: 5.0, reviews: 2, price: '$10.29', unit: '$10.09/kg', badge: 'new', variants: null },
+      { name: 'Natural Vitality Salmon & Whitefish 650g', brand: 'PerfectFit', emoji: '&#127861;', rating: 4.5, reviews: 37, price: '$4.99', unit: '$7.68/kg', badge: null, variants: '3 flavors' },
+    ];
+
+    function renderStars(rating) {
+      const full = Math.floor(rating);
+      const half = rating % 1 >= 0.5 ? 1 : 0;
+      return '&#9733;'.repeat(full) + (half ? '&#189;' : '') + '&#9734;'.repeat(5 - full - half);
+    }
+
+    function getBadgeHTML(badge) {
+      if (!badge) return '';
+      const map = { sale: 'badge-sale', new: 'badge-new', top: 'badge-top' };
+      const labels = { sale: 'Sale', new: 'New', top: 'Bestseller' };
+      return `<div class="product-badge"><span class="${map[badge]}">${labels[badge]}</span></div>`;
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = products.map((p, i) => `
+        <div class="product-card" onclick="openProductDetail('${p.name.replace(/'/g, "\\'")}')">
+          ${getBadgeHTML(p.badge)}
+          <div class="product-img">
+            <span>${p.emoji}</span>
+            <button class="wishlist" onclick="event.stopPropagation(); toggleWishlist(this, '${p.name.replace(/'/g, "\\'")}')" aria-label="Add to wishlist">&#9825;</button>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">${p.brand}</div>
+            <div class="product-name">${p.name}</div>
+            <div class="product-rating">
+              <span class="stars">${renderStars(p.rating)}</span>
+              <span class="rating-text">${p.rating} (${p.reviews})</span>
+            </div>
+            ${p.variants ? `<div class="product-variants">${p.variants}</div>` : ''}
+            <div class="product-price">
+              <span class="price-current">${p.price}</span>
+              ${p.oldPrice ? `<span class="price-original">${p.oldPrice}</span>` : ''}
+              <span class="price-unit">(${p.unit})</span>
+            </div>
+            <button class="product-add" onclick="event.stopPropagation(); addToCart('${p.name.replace(/'/g, "\\'")}', '${p.price}')">Add to Cart</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    let cartCount = 0;
+
+    function addToCart(name, price) {
+      cartCount++;
+      document.querySelector('.cart-badge .count').textContent = cartCount;
+      showToast(`Added "${name}" to cart`);
+      amplitude.track('Product Added to Cart', { product_name: name, price: price, cart_size: cartCount });
+    }
+
+    function toggleWishlist(btn, name) {
+      btn.classList.toggle('active');
+      const isAdded = btn.classList.contains('active');
+      btn.innerHTML = isAdded ? '&#9829;' : '&#9825;';
+      showToast(isAdded ? `"${name}" added to wishlist` : `"${name}" removed from wishlist`);
+      amplitude.track(isAdded ? 'Wishlist Item Added' : 'Wishlist Item Removed', { product_name: name });
+    }
+
+    function openProductDetail(name) {
+      showToast(`Viewing: ${name}`);
+      amplitude.track('Product Viewed', { product_name: name });
+    }
+
+    function switchTab(btn) {
+      document.querySelectorAll('.tab-bar button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      amplitude.track('Category Tab Clicked', { category: btn.textContent });
+    }
+
+    function handleSearch() {
+      const q = document.getElementById('searchInput').value.trim();
+      if (q) {
+        showToast(`Searching for "${q}"...`);
+        amplitude.track('Search Submitted', { query: q });
+      }
+    }
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') handleSearch();
+    });
+
+    function handleNewsletter(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      showToast('Thanks for subscribing!');
+      amplitude.track('Newsletter Subscribed', { email: email });
+      e.target.reset();
+    }
+
+    function getInitials(first, last) {
+      return ((first?.[0] || '') + (last?.[0] || '')).toUpperCase() || '?';
+    }
+
+    function setLoggedInUI(user) {
+      document.getElementById('accountLink').style.display = 'none';
+      const bar = document.getElementById('userBar');
+      bar.style.display = 'flex';
+      const initials = getInitials(user.firstName, user.lastName);
+      const displayName = user.firstName || user.email.split('@')[0];
+      document.getElementById('userAvatar').textContent = initials;
+      document.getElementById('userName').textContent = displayName;
+      document.getElementById('menuName').textContent = [user.firstName, user.lastName].filter(Boolean).join(' ') || displayName;
+      document.getElementById('menuEmail').textContent = user.email;
+      document.getElementById('feedbackUserInfo').style.display = 'flex';
+      document.getElementById('feedbackAvatar').textContent = initials;
+      document.getElementById('feedbackEmail').textContent = user.email;
+    }
+
+    function setLoggedOutUI() {
+      document.getElementById('accountLink').style.display = '';
+      document.getElementById('userBar').style.display = 'none';
+      document.getElementById('feedbackUserInfo').style.display = 'none';
+    }
+
+    function persistUser(user) {
+      localStorage.setItem('amplipets_user', JSON.stringify(user));
+    }
+
+    function loadPersistedUser() {
+      try {
+        const raw = localStorage.getItem('amplipets_user');
+        return raw ? JSON.parse(raw) : null;
+      } catch { return null; }
+    }
+
+    function loginUser(user, eventName) {
+      persistUser(user);
+      setLoggedInUI(user);
+      amplitude.setUserId(user.email);
+      const identify = new amplitude.Identify();
+      if (user.firstName) identify.set('first_name', user.firstName);
+      if (user.lastName) identify.set('last_name', user.lastName);
+      if (user.petType) identify.set('pet_type', user.petType);
+      identify.set('email', user.email);
+      amplitude.identify(identify);
+      amplitude.track(eventName, { method: 'email', email: user.email });
+    }
+
+    function handleSignIn() {
+      const email = document.getElementById('signinEmail').value.trim();
+      const password = document.getElementById('signinPassword').value;
+      if (!email) { showToast('Please enter your email'); return; }
+      if (!password) { showToast('Please enter your password'); return; }
+      const existing = loadPersistedUser();
+      const user = (existing && existing.email === email)
+        ? existing
+        : { email, firstName: '', lastName: '', petType: '' };
+      loginUser(user, 'User Signed In');
+      closeModal('auth');
+      showToast(`Welcome back, ${user.firstName || email.split('@')[0]}!`);
+    }
+
+    function handleSignUp() {
+      const firstName = document.getElementById('signupFirst').value.trim();
+      const lastName = document.getElementById('signupLast').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value;
+      const petType = document.getElementById('signupPetType').value;
+      if (!firstName) { showToast('Please enter your first name'); return; }
+      if (!email) { showToast('Please enter your email'); return; }
+      if (!password) { showToast('Please create a password'); return; }
+      const user = { email, firstName, lastName, petType };
+      loginUser(user, 'User Signed Up');
+      closeModal('auth');
+      showToast(`Welcome to AmpliPets, ${firstName}!`);
+    }
+
+    function handleLogout() {
+      localStorage.removeItem('amplipets_user');
+      setLoggedOutUI();
+      document.getElementById('userMenu').classList.remove('open');
+      amplitude.track('User Signed Out');
+      amplitude.reset();
+      showToast('You have been signed out');
+    }
+
+    function switchAuthTab(tab) {
+      document.querySelectorAll('.auth-tabs button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.auth-form-section').forEach(s => s.classList.remove('active'));
+      if (tab === 'login') {
+        document.querySelector('.auth-tabs button:first-child').classList.add('active');
+        document.getElementById('loginForm').classList.add('active');
+      } else {
+        document.querySelector('.auth-tabs button:last-child').classList.add('active');
+        document.getElementById('signupForm').classList.add('active');
+      }
+      amplitude.track('Auth Tab Switched', { tab: tab });
+    }
+
+    function toggleUserMenu() {
+      document.getElementById('userMenu').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      const bar = document.getElementById('userBar');
+      if (!bar.contains(e.target)) {
+        document.getElementById('userMenu').classList.remove('open');
+      }
+    });
+
+    function openModal(type) {
+      document.getElementById(type + 'Modal').classList.add('open');
+      amplitude.track('Modal Opened', { modal_type: type });
+    }
+    function closeModal(type) {
+      document.getElementById(type + 'Modal').classList.remove('open');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    function toggleFeedback() {
+      const panel = document.getElementById('feedbackPanel');
+      const isOpen = panel.classList.toggle('open');
+      amplitude.track(isOpen ? 'Feedback Panel Opened' : 'Feedback Panel Closed');
+    }
+
+    let selectedEmoji = null;
+    function selectEmoji(btn, value) {
+      document.querySelectorAll('.feedback-emoji-row button').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedEmoji = value;
+    }
+
+    function submitFeedback() {
+      const text = document.querySelector('.feedback-body textarea').value;
+      if (!selectedEmoji && !text) {
+        showToast('Please provide a rating or comment');
+        return;
+      }
+      const user = loadPersistedUser();
+      const props = {
+        rating: selectedEmoji,
+        comment: text,
+        page: window.location.pathname,
+      };
+      if (user) {
+        props.user_email = user.email;
+        props.user_name = [user.firstName, user.lastName].filter(Boolean).join(' ');
+      }
+      amplitude.track('Feedback Submitted', props);
+      showToast('Thank you for your feedback!');
+      toggleFeedback();
+      document.querySelector('.feedback-body textarea').value = '';
+      document.querySelectorAll('.feedback-emoji-row button').forEach(b => b.classList.remove('selected'));
+      selectedEmoji = null;
+    }
+
+    function closeExperiment() {
+      document.getElementById('experimentBanner').style.display = 'none';
+      amplitude.track('Experiment Banner Dismissed', { variant: 'promo-banner-v1' });
+    }
+
+    renderProducts();
+
+    (function restoreSession() {
+      const user = loadPersistedUser();
+      if (user) {
+        setLoggedInUI(user);
+        amplitude.setUserId(user.email);
+        const identify = new amplitude.Identify();
+        if (user.firstName) identify.set('first_name', user.firstName);
+        if (user.lastName) identify.set('last_name', user.lastName);
+        if (user.petType) identify.set('pet_type', user.petType);
+        identify.set('email', user.email);
+        amplitude.identify(identify);
+      }
+    })();
+  </script>
+</body>
+</html>
