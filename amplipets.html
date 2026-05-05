@@ -2400,8 +2400,9 @@
       localStorage.removeItem('amplipets_user');
       setLoggedOutUI();
       document.getElementById('userMenu').classList.remove('open');
-      amplitude.track('User Signed Out');
-      amplitude.reset();
+      amplitude.track('User Signed Out').promise.then(function() {
+        amplitude.reset();
+      });
       showToast('You have been signed out');
     }
 
